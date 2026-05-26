@@ -349,24 +349,6 @@ jobs:
             echo "upload_path=${{secrets.DOWNLOADS_PATH}}/development_releases/windows/msvc" >> $GITHUB_OUTPUT
           fi
 
-      - name: SSH Setup
-        if: steps.set-upload-path.outputs.upload_path != ''
-        shell: bash
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{secrets.SSH_KNOWN_HOSTS}}" > ~/.ssh/known_hosts
-          echo "${{secrets.SSH_KEY}}" > ~/.ssh/id_rsa
-
-      - name: Create server path
-        if: steps.set-upload-path.outputs.upload_path != ''
-        shell: bash
-        run: ssh -p ${{secrets.SSH_PORT}} -o StrictHostKeyChecking=no ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} mkdir -p ${{steps.set-upload-path.outputs.upload_path}}
-
-      - name: rsync
-        if: steps.set-upload-path.outputs.upload_path != ''
-        shell: bash
-        run: rsync -e "/c/ProgramData/chocolatey/lib/rsync/tools/bin/ssh.exe -p ${{secrets.SSH_PORT}} -o StrictHostKeyChecking=no" -var build/StrawberrySetup*.exe ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}}:${{steps.set-upload-path.outputs.upload_path}}/
-
       - name: Install packages
         env:
           DEBIAN_FRONTEND: noninteractive

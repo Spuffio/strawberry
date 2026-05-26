@@ -1345,7 +1345,7 @@ jobs:
       - name: Download Windows MSVC dependencies
         shell: cmd
         working-directory: downloads
-        run: curl -f -O -L https://github.com/Spuffio/strawberry-msvc-dependencies/releases/latest/download/strawberry-msvc-${{matrix.arch}}-${{matrix.buildtype}}.tar.xz
+        run: curl -f -O -L https://github.com/l10n_master/strawberry-msvc-dependencies/releases/latest/download/strawberry-msvc-${{matrix.arch}}-${{matrix.buildtype}}.tar.xz
 
       - name: Extract Windows MSVC dependencies
         shell: bash

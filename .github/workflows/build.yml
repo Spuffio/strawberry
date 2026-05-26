@@ -1733,3 +1733,4 @@ jobs:
             echo "Adding files to GitHub release"
             gh release upload "${{github.event.release.tag_name}}" ${files_list}
           fi
+# trigger build
